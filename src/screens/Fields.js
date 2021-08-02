@@ -27,6 +27,21 @@ const Item = ({ id, title, val, allowedEdit }) => {
     )
 }
 
+const getEventName = (eventType) => {
+    switch (eventType) {
+        case 1:
+            return "Audit";
+        case 2:
+            return "Reactive";
+        case 3:
+            return "Planned";
+        case 4:
+            return "Scheduled";
+        case 5:
+            return "Test";
+    }
+}
+
 const Fields = (props) => {
 
     const { signOut } = React.useContext(AuthContext);
@@ -121,6 +136,7 @@ const Fields = (props) => {
             setbvId(response.data.valveDetail.bvId);
             setcomment(response.data.valveDetail.comment);
             setbvcontrolNumber(response.data.valveDetail.bvcontrolNumber);
+            setevents(response.data.valveDetail.events);
 
             setisLoading(false);
         }).catch(function (error) {
@@ -147,7 +163,7 @@ const Fields = (props) => {
 
 
         var params = {
-            id: data.id,
+            valveId: data.valveId,
             qrid: data.qrid,
             dmaName: dmaName,
             valveSize: valveSize,
@@ -155,9 +171,9 @@ const Fields = (props) => {
             comment: comment,
             latitude: data.latitude,
             longitude: data, longitude,
-            //assetId: data.assetId,
-            //bvId: data.bvId,
-            //bvcontrolNumber: data.bvcontrolNumber,
+            assetId: data.assetId,
+            bvId: data.bvId,
+            bvcontrolNumber: data.bvcontrolNumber,
             //events: data.events
         }
         props.navigation.navigate("CreateEvent", { "params": params, "qrid": data.qrid });
@@ -182,8 +198,19 @@ const Fields = (props) => {
 
             {
                 data != null && (
+
+
                     <ScrollView style={{ marginBottom: 40, backgroundColor: 'white' }}>
-                        <Item id={"valveId"} title={capitalizeFirstLetter("Valve ID")} val={id} allowedEdit={false} />
+
+                        <Text style={{
+                            height: 50,
+                            paddingVertical: 10,
+                            fontSize: 20,
+                            fontWeight: '800',
+                            alignSelf: 'center',
+                        }}>Valve Details</Text>
+
+                        <Item id={"valveId"} title={capitalizeFirstLetter("Valve ID")} val={valveId} allowedEdit={false} />
                         <Item id={"qrid"} title={capitalizeFirstLetter("QR ID")} val={qrid} allowedEdit={false} />
 
                         <View style={styles.item}>
@@ -256,6 +283,37 @@ const Fields = (props) => {
                         <Item id={"bvId"} title={capitalizeFirstLetter("BV ID")} val={bvId} allowedEdit={false} />
                         <Item id={"bvcontrolNumber"} title={capitalizeFirstLetter("BV Control Number")} val={bvcontrolNumber} allowedEdit={false} />
                         {/* <Item ref={events} title={"events"} value={events} /> */}
+
+                        <Text style={{
+                            height: 50,
+                            paddingVertical: 10,
+                            fontSize: 20,
+                            fontWeight: '800',
+                            alignSelf: 'center',
+                        }}>Event Details</Text>
+
+                        {
+                            events.map((data) => {
+                                return <View style={{
+                                    marginHorizontal: 22,
+                                    marginVertical: 10,
+                                    borderRadius: 5,
+                                    borderColor: '#CCCCCC',
+                                    borderWidth: 1,
+                                    padding: 10
+                                }}>
+                                    <Text style={{ marginVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>Event ID:</Text> {data.eventId}</Text>
+                                    <Text style={{ marginVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>Event Type:</Text>  {getEventName(data.eventType)}</Text>
+                                    <Text style={{ marginVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>Event Deescription:</Text>  {data.eventDescription}</Text>
+                                    <Text style={{ marginVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>Event Created:</Text>  {data.createdDateTime}</Text>
+                                    {/* <Text style={{ marginVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>QR ID:</Text>  {data.qrId}</Text> */}
+                                    <Text style={{ marginVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>Valve ID:</Text>  {data.valveId}</Text>
+                                    <Text style={{ marginVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>Engineer ID:</Text>  {data.engineerId}</Text>
+                                </View>
+                            })
+
+                        }
+
                     </ScrollView>
                 )
             }

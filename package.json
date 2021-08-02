@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "pod": "cd ios && pod install && cd ..",
     "bundle-android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-    "assemble-android": "./gradlew assembleRelease -x bundleReleaseJsAndAssets"
+    "assemble-android": "./gradlew assembleRelease -x bundleReleaseJsAndAssets",
+    "menu": "adb shell input keyevent 82"
   },
   "dependencies": {
     "@react-native-community/async-storage": "1.12.1",

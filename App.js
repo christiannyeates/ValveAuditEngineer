@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthContext } from './src/components/context';
-import AuthRoutes from './src/navigation/AuthRoute';
-import AppRoutes from './src/navigation/AppRoute';
+// import AuthRoutes from './src/navigation/AuthRoute';
+// import AppRoutes from './src/navigation/AppRoute';
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -19,7 +19,7 @@ import CreateEventScreen from './src/screens/CreateEvent';
 const App = () => {
 
   const initialLoginState = {
-    isLoading: true,
+    //isLoading: true,
     userName: null,
     userID: null,
     userToken: null,
@@ -97,7 +97,7 @@ const App = () => {
   }), []);
 
   useEffect(() => {
-    SplashScreen.hide();
+
 
     setTimeout(async () => {
       // setIsLoading(false);
@@ -106,11 +106,13 @@ const App = () => {
       try {
         userToken = await AsyncStorage.getItem('userToken');
         engineerID = await AsyncStorage.getItem('engineerId');
+
       } catch (e) {
         console.log(e);
       }
       // console.log('user token: ', userToken);
       dispatch({ type: 'RETRIEVE_TOKEN', token: userToken, eid: engineerID });
+      SplashScreen.hide();
     }, 1000);
   }, []);
 
@@ -120,12 +122,13 @@ const App = () => {
     return (
 
       < Stack.Navigator headerMode={'none'} >
-        <Stack.Screen name="ID" component={IDScreen} />
+        {!engineerID && (
+          <Stack.Screen name="ID" component={IDScreen} />
+        )}
         <Stack.Screen name="Scan" component={ScanScreen} />
         <Stack.Screen name="Fields" component={FieldsScreen} />
         <Stack.Screen name="CreateEvent" component={CreateEventScreen} />
         <Stack.Screen name="History" component={HistoryScreen} />
-        <Stack.Screen name="ScanResult" component={ScanResultScreen} />
       </Stack.Navigator >
     )
   }

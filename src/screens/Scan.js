@@ -30,7 +30,7 @@ const Scan = ({ navigation }) => {
 
     // useEffect(() => {
     //     navigation.navigate('Fields', { 'qrId': 880097 });
-    // }, [6])
+    // }, [7])
 
     const storeData = async (val) => {
         const newScan = {

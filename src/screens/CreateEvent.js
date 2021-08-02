@@ -166,7 +166,7 @@ const Login = (props) => {
                 event_type = 3;
                 break;
             case "Scheduled":
-                event_typ = 4;
+                event_type = 4;
                 break;
             case "Test":
                 event_type = 5;
