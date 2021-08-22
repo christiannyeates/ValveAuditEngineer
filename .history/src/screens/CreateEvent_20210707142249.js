@@ -24,7 +24,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Root, Popup } from 'popup-ui';
 import GetLocation from 'react-native-get-location'
 import { DismissKeyboardView } from '../utils/DissmissView'
-import NetInfo from '@react-native-community/netinfo'
 
 
 const Login = (props) => {
@@ -123,7 +122,6 @@ const Login = (props) => {
         });
 
         const params = props.route.params.params;
-        Net
         params.latitude = String(lat);
         params.longitude = String(lng);
         const qrid = props.route.params.params.qrid;

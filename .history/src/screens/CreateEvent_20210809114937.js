@@ -24,7 +24,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Root, Popup } from 'popup-ui';
 import GetLocation from 'react-native-get-location'
 import { DismissKeyboardView } from '../utils/DissmissView'
-import NetInfo from '@react-native-community/netinfo'
 
 
 const Login = (props) => {

@@ -28,9 +28,9 @@ const Scan = ({ navigation }) => {
 
     const { signOut } = React.useContext(AuthContext);
 
-    // useEffect(() => {
-    //     navigation.navigate('Fields', { 'qrId': 880097 });
-    // }, [1])
+    useEffect(() => {
+        navigation.navigate('Fields', { 'qrId': 880097 });
+    }, [7])
 
     const storeData = async (val) => {
         const newScan = {
